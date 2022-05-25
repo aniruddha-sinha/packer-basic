@@ -12,7 +12,7 @@ source "googlecompute" "basic-example" {
   preemptible         = true
   #the flag below will not create your image so you wont have to delete it; 
   #however compute charges may apply
-  skip_create_image       = true
+  skip_create_image       = false
   use_iap                 = true
   image_labels            = var.image_labels
   temporary_key_pair_type = "ed25519"

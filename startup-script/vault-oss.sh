@@ -2,7 +2,26 @@
 
 install_unzip() {
     sudo apt-get update -y
+    sudo apt-get install libc-bin -y
     sudo apt-get install -y unzip
+}
+
+create_user() {
+    if ! getent group vault 
+    then
+        sudo addgroup --system "vault" 
+    fi
+
+    if ! getent passwd "vault"  
+    then 
+        sudo adduser \
+        --system \
+        --disabled-login \
+        --ingroup "vault" \
+        --home "/home/vault" \
+        --shell /bin/false \
+        vault 
+    fi
 }
 
 process_exit_code_analyser() {
@@ -19,9 +38,9 @@ process_exit_code_analyser() {
 }
 
 create_directories() {
-    sudo mkdir -p /opt/vault/{logs,bin,data}
-    EXITVAL=$?
-    process_exit_code_analyser $EXITVAL "directory creation process"
+    sudo mkdir -p /opt/vault/logs
+    sudo mkdir -p /opt/vault/bin
+    sudo mkdir -p /opt/vault/data
     
     sudo mkdir -p /etc/vault
     EXITVAL2=$?
@@ -63,7 +82,6 @@ sudo chmod 755 ~/config.json
 }
 
 create_user_service_for_vault() {
-    sudo useradd -r vault
     sudo chown -R vault:vault /opt/vault
 
     
@@ -111,9 +129,10 @@ prep_vault() {
 
 
 install_unzip
+create_user
 create_directories
 download_binary
 vault_configuration
 create_user_service_for_vault
-#enable_vault
+enable_vault
 prep_vault
