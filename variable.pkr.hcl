@@ -21,3 +21,8 @@ variable "disk_size" {
   type    = number
   default = 50
 }
+
+variable "source_image_family" {
+  type    = string
+  default = "rocky-linux-8"
+}
