@@ -1,12 +1,13 @@
 source "googlecompute" "basic-example" {
   project_id          = var.project_id
   source_image_family = var.source_image_family
+  image_name          = "vaulte-${var.project_id}-stable"
   ssh_username        = "vaulte"
   disk_size           = "50"
   disk_type           = "pd-standard"
   zone                = var.zone
-  network             = "odin-thirteen-net-2-prim-vpc"
-  subnetwork          = "odin-thirteen-us-central1-net-2-subnet"
+  network             = "vpc-odin-thirteen"
+  subnetwork          = "subnet-us-0"
   omit_external_ip    = true
   use_internal_ip     = true
   preemptible         = true
