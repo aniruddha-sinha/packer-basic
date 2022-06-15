@@ -54,7 +54,7 @@ WantedBy=multi-user.target
 EOF
 
 
-touch /etc/vault/config.hcl
+sudo touch /etc/vault/config.hcl
 
 
 cat <<EOF | sudo tee /etc/vault/config.hcl

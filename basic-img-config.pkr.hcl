@@ -17,10 +17,14 @@ source "googlecompute" "basic-example" {
   use_iap                 = true
   image_labels            = var.image_labels
   temporary_key_pair_type = "ed25519"
-  startup_script_file     = "./startup-script/vault-oss.sh"
+  #startup_script_file     = "./startup-script/vault-oss.sh"
 }
 
 build {
   sources = ["sources.googlecompute.basic-example"]
+
+  provisioner "shell" {
+    script = "./startup-script/vault-oss.sh"
+  }
 }
 
